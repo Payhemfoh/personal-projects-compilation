@@ -1,0 +1,229 @@
+<script>
+	//at other file
+	export const capitalizeString = str=>str.toUpperCase();
+	
+	//only export 1 function
+	export default function addition = x+y;
+	
+	import addition from "<file.name>";
+	
+	export{capitalizeString};
+	export const foo = 'bar';
+	
+	//export & import everything
+	import * as hello from "<file.name>";
+	//includes
+	import{capitalizeString} from "<file_location>";
+
+	console.log("Hello world");
+	//comment same as c++
+	//datatype: undefined, null, number, string, boolean, object, symbol
+
+	//before asign the variable is null
+	//var is global variable
+	//if no var ,it will become global automaticcally
+	//outside scope can also use the variable
+	var name="Payhem";
+	//let cannot declare same name twice
+	//scope of let only in the scope
+	let name2="foh";
+	//const cannot be change
+	//cannot be reasign
+	//the const of array can change the value inside by index
+	const PI=3.14
+	//can change datatype directly
+	console.log(pi);
+	
+	//protect the value from inherit
+	Object.freeze(PI);
+
+	//divide will return float directly
+	//can use divide++ and divide--
+	//remainder also %
+	let divide= 2/3;
+	console.log(divide);
+	
+	//string can be "" or '' or ``
+	//escape almost same as c++
+	//\n \t \r
+	//concate use +(can concate with variable)
+	//find length with .length
+	//index same as c++
+	//cannot change one character only
+	let website='www.hello.com';
+	let size=website.length;
+	
+	
+	function print_text(){
+		return "Hello World";
+	}
+	
+	console.log(print_text());
+	/*
+	array
+	element can be any datatype
+	got multi array
+	data is accessed by index
+	data in array can be change with index
+	can append array with .push
+	can remove the last element with .pop
+	can remove first element with .shift
+	can add first element with .unshift
+	*/
+	var hai={
+		"name":"Joe",
+		"age":"18",
+		"bloodType":"A"};
+	//add new public
+	hai.dob="21-11-2019";
+	hai['car']='Audi';
+	
+	//delete a public
+	delete hai.car;
+	var arr=["John",23,true,54];
+	arr.push(["Hello",5]);
+	arr.pop();
+	arr.shift();
+	arr.unshift("Peter");
+	
+	//strict equality
+	//=== will also check data type
+	try{
+		if((3==='3')==true){
+			console.log("3 equal to '3'");
+		//3!=='3'
+		else if(3!=='3')==true)
+			console.log("3 not equal to '3'");
+		else{
+			console.log("error");
+			throw 2;
+		}
+	}
+	catch(int x)
+	{
+		console.log("error "+x);
+	}
+	
+	//normal equality(change datatype automatically)
+	if((3=='3')==true){
+		console.log("3 equal to '3'")
+	else
+		console.log("3 not equal to '3'")
+		
+	//switch case same as c++
+	//ternary
+	//condition? true:false
+	
+	property='A';
+	//check either the property is inside the data
+	console.log(hai.hasOwnPeoperty(property));
+	
+	//return random value
+	Math.random()
+	
+	//round to nearest value
+	//get number between 0 and 19
+	Math.floor(Math.random()*20);
+	
+	//convert string to int
+	//second parameter is redix or base(binary,hexadecimal...)
+	parseInt(str,2);
+	
+	
+	//function
+	var magic=function(){
+		return new Data();
+	}
+	
+	//arrow function
+	var mafu=()=>new Data();
+	var con=(arr1,arr2)=>arr1.concat(arr2);	
+	
+	const squareList =(arr)=>{
+		const squaredIntegers=arr.filter(num=>Number.isInteger(num)&&num>0).map(x=>x*x);
+		return squaredIntegers;
+	};
+	
+	const increment =(function() {
+		return function increment(number, value=1){
+			return number+value;
+		};
+	})();
+	
+	//... rest operator
+	const sum=(function(){
+		return function sum(...args){
+			return args.reduce((a,b)=>a+b,0)
+		};
+	}();
+	
+	//arr2 will copy the contain in arr1
+	arr2=[...arr1];
+	
+	
+	//asign variable with array
+	arr={a:12,b:11,c:10};
+	var a=arr.a;
+	var b=arr.b;
+	var c=arr.c;
+	//destructuring assignment (object)
+	const {a:x,b:y,c:z} = arr;
+	
+	abb={a:{hi:15,ho:19},b:{hi:16,ho:9}};
+	
+	const {a:{hi:score}}=abb;
+	
+	//destructuring assignment (array)
+	const [a1,a2,,a4]=[1,2,3,4,5,6];
+	
+	//switch place in array
+	[a,b]=[b,a]
+	
+	//remove first 2 element
+	const [ , , ...arr]=list;
+	
+	//to function
+	const stats={
+		max: 56.78,
+		std_dev:3,
+		median:35,
+		mode:30,
+		min:-0.75,
+		avg:35.55
+	};
+	
+	const half=(function(){
+		return function half({max,min}){
+			return (max + min)/2;
+		};
+	})();
+	
+	//template literal
+	const greeting =`Hello, my name is ${person.name}!
+	I am ${person.age} years old.`;
+	
+	//use the variable as attribute of the object
+	const createPerson = (name,age,gender)=>({name,age,gender});
+	
+	function makeClass(){
+		class SpaceShuttle {
+			//constructor
+			constructor(targetPlanet){
+				this.targetPlanet=targetPlanet;
+			//getter
+			get targetPlanet(){
+				return this.targetPlanet;
+			}
+			//setter
+			set targetPlanet(input){
+				this.targetPlanet=input;
+			}
+		}
+		return SpaceShuttle;
+	}
+	
+	const SpaceShuttle = makeClass();
+	const zeus=new SpaceShuttle("Jupiter");
+	zeus.targetPlanet="Mars";
+	console.log(zeus.targetPlanet);
+</script>
