@@ -1,0 +1,175 @@
+<!-- Bootstrap -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Bootstrap</title>
+		<meta charset="utf-8">
+		<!-- bootstrap -->
+		<link rel="stylesheet" 
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+		crossorigin="anonymous">
+		<!-- font awesome -->
+		<link rel="stylesheet" 
+		href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+		crossorigin="anonymous">
+		
+		<!-- jQuery -->
+		<!-- jQuery Google CDN -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- jQuery Microsoft CDN 
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+		-->
+		
+		<!-- Sass -->
+		<style type="text/sass">
+		//declare variable
+		$font-type=Arial;
+		
+		//mixin or function for css
+		@mixin border($value){
+			border-radius:$value;
+			border-size:$value;
+		}
+		
+		//if statement
+		@if $bool==true{
+		
+		}
+		@else if $bool==false{
+		
+		}
+		@else{
+		
+		}
+		
+		//for statement
+		@for $i from 1 through 32{
+			.col#{$i}{width:100%/12*$i;}
+		}
+		
+		@each $color in blue, red, green {
+			.#{$color}-text {color: $color;}
+		}
+		
+		$colors: (color1: blue, color2: red, color3: green);
+		@each $key, $color in $colors {
+			.#{$color}-text {color: $color;}
+		}
+		
+		$x: 1;
+		@while $x < 13 {
+		  .col-#{$x} { width: 100%/12 * $x;}
+		  $x: $x + 1;
+		}
+		
+		//Names for partials start with the underscore (_) character, which tells Sass it is a small segment of CSS and not to convert it into a CSS file
+		//underscore and extension is no needed during import
+		@import 'maxin'
+		
+		//use @extend to borrow the css attribute from other classes
+		@extend .btn;
+
+		.header{
+		font-family:$font-type;
+		@include border(20px);
+		}
+		</style>
+		
+		<script>
+			//code will run as soon as webpage is loaded
+			//without document.ready may run before webpage loaded and cause error
+			$(document).ready(dunction(){
+				//add classes
+				$("button").addClass("animated bounce");
+				$(".well").addClass("animated shake");
+				$("#target3").addClass("animated fadeOur");
+				//select all the nth elements with the target class or element type.
+				$(".target:nth-child(3)").addClass("animated bounce");
+				
+				//remove class
+				$("button").removeClass("bounce");
+				//add css
+				$("button").css("color","blue");
+				//change property of html element
+				$("button").prop("disabled",true);
+				//change tag and text to the element
+				$("h3").html("<em>Hello</em>");
+				//change text to element
+				$("h3").text("<em>Hello</em>");
+				//remove html element
+				$("h3").remove();
+				//move html element to other div
+				#("target4").appendTo("#Hello");
+				//copy element to other div
+				#("target4").clone().appendTo("#Hello");
+				//give changes to the parent of the element
+				#("target4").parent().css("background-color","blue");
+				//give changes to the children of the element
+				//can use :odd and :even also
+				#("#left-well").children().css("background-color","red");
+			});
+			/*
+			All jQuery statement start with $ sign
+			jQuery often select HTML element and changes
+			*/
+			
+		</script>
+	</head>
+	
+	<body>
+		<!-- class used for bootstrap auto resize according to panel size -->
+		<div class="fluid-container">
+			<!-- class used to center the text -->
+			<h1 class="text-center">Hello</h1>
+			
+			<!-- class used for image auto resize -->
+			<img src="#" class="img-responsive">
+			
+			<!-- well class can create visual sense of depth
+			<!-- button tag used to create button -->
+			<!-- 
+				classes to change the appearance of button 
+				btn is required for using btn- classes button width and height is same as the text width
+				btn-default - button color is default color (white)
+				btn-primaty - button color is main color of the app
+				btn-info	- button color is less dense color for btn-primary
+				btn-danger	- button color is warning color(red)
+				btn-success	- button color is green
+				btn-warning - button color is yellow
+				btn-link	- button is a link
+				btn-lg		- large button
+				btn-sm		- small button
+				btn-xs		- extra small button
+				active|disabled
+				btn-block 	- button width is same as the page width
+			-->
+			<button class="btn btn-default btn-block">Like</button>
+			
+			<!--
+				All textual <input>, <textarea>, and <select> elements with the class .form-control have a width of 100%.
+			-->
+				<textarea class="form-control">
+				</text-area>
+			<!-- 
+				classes for specify element position
+				12-column grid system
+				col-md-*
+				md:medium *:number of col width
+				xs:extra small
+				can be applied to form
+			-->
+			<div class="col-xs-3">
+			
+			</div>
+			
+			<!-- span element allow several element to put at same line -->
+			<!-- text-danger change the text into red color -->
+			<span class="text-danger">H1</span>
+			
+			<!-- i class for icon in font awesome -->
+			<i class="fa fa-info-circle"></i>
+		</div>
+	</body>
+</html>

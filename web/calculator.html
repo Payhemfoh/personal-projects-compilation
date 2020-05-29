@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Calculator</title>
+    <script>
+      function insert(num)
+      {
+        document.form.display.value=document.form.display.value + num;
+      }
+      function clean()
+      {
+        document.form.display.value="";
+      }
+      function calculate()
+      {
+        var exp=document.form.display.value;
+        if (exp)
+          {
+            document.form.display.value=eval(exp);
+          }
+      }
+      function back()
+      {
+        var exp=document.form.display.value;
+        document.form.display.value=exp.substring(0,exp.length-1);
+      }
+	  function square()
+	  {
+		  document.form.display.value=document.form.display.value*document.form.display.value;
+	  }
+	  
+	  
+	  function cube()
+	  {
+		  document.form.display.value**=3;
+	  }
+	  
+    </script>
+    <style>
+      *{
+        margin:5px;
+        padding:0px;
+      }
+      .button{
+        width:50px;
+        height:50px;
+        font-size:25px;
+        margin:2px;
+        cursor:pointer;
+        font-family:times;
+        background:grey;
+        color:white;
+		border-radius:10px;
+      }
+      .display{
+        width:220px;
+        height:50px;
+        font-size:25px;
+        font-family:times;
+        margin:2px;
+        background:grey;
+        color:white;
+      }
+      .main{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translateX(-50%) translateY(-50%);
+        background:black;
+		border:2px;
+		border-radius:10px;
+      }
+    </style>
+  </head>
+  <body style="background:blue">
+	<div class="main">
+      <form name="form">
+        <input class="display" name="display">
+      </form>
+
+      <table>
+        <tr>
+          <td><input class="button" type="button" value="C" onclick="clean()"></td>
+          <td><input class="button" type="button" value="<" onclick="back()"></td>
+          <td><input class="button" type="button" value="/" onclick="insert('/')"></td>
+          <td><input class="button" type="button" value="x" onclick="insert('*')"></td>
+        </tr>
+        
+        <tr>
+          <td><input class="button" type="button" value="7" onclick="insert(7)"></td>
+          <td><input class="button" type="button" value="8" onclick="insert(8)"></td>
+          <td><input class="button" type="button" value="9" onclick="insert(9)"></td>
+          <td><input class="button" type="button" value="-" onclick="insert('-')"></td>
+        </tr>
+        
+        <tr>
+          <td><input class="button" type="button" value="4" onclick="insert(4)"></td>
+          <td><input class="button" type="button" value="5" onclick="insert(5)"></td>
+          <td><input class="button" type="button" value="6" onclick="insert(6)"></td>
+          <td><input class="button" type="button" value="+" onclick="insert('+')"></td>
+        </tr>
+        
+        <tr>
+          <td><input class="button" type="button" value="1" onclick="insert(1)"></td>
+          <td><input class="button" type="button" value="2" onclick="insert(2)"></td>
+          <td><input class="button" type="button" value="3" onclick="insert(3)"></td>
+          <td rowspan="2"><input class="button" style="height:105px"type="button" value="=" onclick="calculate()"></td>
+        </tr>
+        
+        <tr>
+          <td colspan="2"><input class="button" style="width:105px"type="button" value="0" onclick="insert(0)"></td>
+          <td><input class="button" type="button" value="." onclick="insert('.')"></td>
+        </tr>
+      </table>
+	  <br/>
+	  <!-- funtional tools -->
+	  <table>
+		<tr>
+			<td><input class="button" type="button" value="^2" onclick="square()"></td>
+			<td><input class="button" type="button" value="^3" onclick="cube()"></td>
+		</tr>
+	  </table>
+    </div>
+  </body>
+</html>
