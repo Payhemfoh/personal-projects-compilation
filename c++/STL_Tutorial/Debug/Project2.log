@@ -1,0 +1,5 @@
+﻿  functor.cpp
+functor.obj : error LNK2005: _main already defined in algorithm.obj
+iterator.obj : error LNK2005: _main already defined in algorithm.obj
+container.obj : error LNK2005: _main already defined in algorithm.obj
+C:\Users\Payhemfoh\source\repos\Project2\Debug\Project2.exe : fatal error LNK1169: one or more multiply defined symbols found
