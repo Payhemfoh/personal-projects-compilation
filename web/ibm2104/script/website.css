@@ -1,0 +1,150 @@
+*{
+	font-family:Arial;
+}
+
+#main{
+	background:url(../pictures/background.JPEG);
+	width:100%;
+	margin-left:0px;
+}
+
+a{
+	color:black;
+	text-decoration: none;
+}
+
+a:hover{
+	color:blue;
+	text-decoration: underline;
+}
+
+
+.header{
+	padding:0 0 0 0;
+	background-color:#333;
+	color:rgb(300,300,300);
+	width:100%;
+	z-index:999;
+}
+	
+.content{
+	padding:16px;
+	opacity:1;
+}
+	
+.sticky{
+	position:fixed;
+	top:0;
+	width:100%;
+}
+	
+.sticky + .content{
+	padding-top:102px;
+}
+	
+	
+#navigation{
+	list-style:none;
+	overflow:hidden;
+	background-color:#333;
+}
+	
+.nav-a{
+	float:left;
+	font-weight:none;
+	text-decoration:none;
+	color:white;
+	display:block;
+	padding: 14px 16px;
+	border-radius:10px;
+}
+	
+.nav-a:hover{
+	background-color:rgb(180,180,180);
+	color:black;
+	transform:scale(1.2);
+}
+	
+.nav-b{
+	float:right;
+	font-weight:none;
+	text-decoration:none;
+	color:white;
+	display:block;
+	padding: 14px 30px;
+	border-radius:10px;
+}
+	
+.nav-b:hover{
+	background-color:rgb(180,180,180);
+	color:black;
+	transform:scale(1.2);
+}
+	
+.nav-logo{
+	float:left;
+	font-weight:none;
+	text-decoration:none;
+	color:white;
+	display:block;
+	padding-top:5px;
+	padding-right:10px;
+	padding-left:10px;
+	border-radius:10px;
+}
+	
+.nav-logo:hover{
+	background-color:rgb(180,180,180);
+	color:black;
+	transform:scale(1.2);
+}
+
+.selected{
+	background-color:rgb(180,180,180);
+	color:black;
+	text-decoration:underline;
+}
+
+/*footer */
+footer{
+	margin: 20px;
+	margin-bottom:0px;
+	padding: 20px;
+	border-radius:20px 20px 0 0;
+	background-color:rgba(200,200,200,0.7);
+	display:grid;
+	grid-template-rows:90% 10%;
+	grid-template-columns:2fr 1px 1fr;
+	grid-template-areas:
+	"sign line contact"
+	"copy line contact";
+}
+
+.copyright{
+	grid-area:copy;
+	font-size:10px;
+}
+
+.footer-contact{
+	grid-area:contact;
+	padding-left:20px;
+}
+
+.footer-sign-up{
+	grid-area:sign;
+}
+
+.footer-line{
+	grid-area:line;
+	background-color:#000;
+}
+
+.footer-link{
+	color:blue;
+	text-decoration: none;
+}
+
+.footer-link:hover{
+	color:blue;
+	text-decoration:underline;
+}
