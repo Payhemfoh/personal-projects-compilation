@@ -1,8 +1,12 @@
 #include<iostream>
-#include<cmath>
+#include "happy.cpp"
+#include<SQLAPI.h>
 using namespace std;
 
 int main()
 {
-	cout << pow(2.0, pow(3.0, 1.0)) << endl;
+	 
+	display_number();
+	printline(3);
+	return 0;
 }
