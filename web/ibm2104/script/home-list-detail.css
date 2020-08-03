@@ -1,0 +1,189 @@
+/* display the background block*/
+.content{
+	background-color:rgba(255,255,255,1);
+	margin:80px 80px 80px 80px;
+	border-radius:30px;
+}
+
+/*search bar*/
+#searchbar{
+	width:100%;
+}
+
+#searchbar input[type=text]{
+	margin-left:4%;
+	margin-bottom: 20px;
+	border-radius:20px;
+	font-size:14px;
+	padding-right:0;
+	width:80%;
+	height:30px;
+	padding-left:30px;
+}
+
+#searchbar input[type=submit]{
+	padding-left:0;
+	align:center;
+	border-radius:20px;
+	height:30px;
+	width:10%;
+	cursor:pointer;
+	background-color:rgb(240,210,78);
+}
+
+#searchbar input[type=submit]:hover{
+	animation-name:point;
+	animation-duration:500ms;
+	animation-fill-mode:forwards;
+}
+
+/* suggestion list in homepage */
+
+.sug{
+	background-color:rgba(240,173,78,0.2);
+	align:center;
+	display:grid;
+	grid-template-columns:20% 3px auto;
+	grid-template-rows:20% 80%;
+	grid-template-areas:
+	"img empty text"
+	"img empty description";
+	height:200px;
+	border-radius:30px;
+	margin: 20px 40px 20px 40px;
+	border-radius:10px;
+}
+
+.line{
+	grid-area:empty;
+	background-color:rgba(240,173,78,0.2);
+}
+
+.sug-img{
+	width:100%;
+	height:100%;
+	align:center;
+	grid-area:img;
+	padding:10px;
+}
+
+.sug-link{
+	text-decoration:none;
+	color:black;
+}
+
+.sug-link:hover{
+	text-decoration:none;
+	color:black;
+}
+
+.sug-des{
+	grid-area:description;
+	padding-left:10px;
+	font-size:20px;
+	padding-top:20px;
+}
+
+h1{
+	text-align:center;
+	font-size:40px;
+}
+
+.item-name{
+	grid-area:text;
+	font-weight:bold;
+	font-size:30px;
+	text-decoration:underline;
+	padding:10px 0 10px 10px;
+	color:red;
+}
+/* the image display at the top of the page */
+.title-img{
+	border-radius:50px;
+	width:100%;
+	height: 600px;
+}
+
+/* the article at the about and career page */
+.about-title{
+	font-size:50px;
+	text-transform:uppercase;
+	color:white;
+	text-decoration:underline;
+	font-weight:bold;
+	font-family:Candara;
+	width:50%;
+	padding-bottom:20px;
+}
+
+#about-title1{
+	background-color:rgb(120,150,255);
+	border-radius:20px;
+	padding-left:40px;
+}
+
+#about-title2{
+	background-color:rgb(170,120,230);
+	border-radius:20px;
+	padding-left:40px;
+}
+
+#about-title3{
+	background-color:rgb(255,150,60);
+	border-radius:20px;
+	padding-left:40px;
+}
+
+.career-title{
+	font-size:50px;
+	text-transform:uppercase;
+	color:rgb(100,121,124);
+	text-decoration:underline;
+	font-weight:bold;
+	font-family:Candara;
+	width:50%;
+	padding-bottom:20px;
+}
+
+#career-title1{
+	background-color:rgba(237,247,214,0.5);
+	border-radius:20px;
+	padding-left:40px;
+}
+
+#career-title2{
+	background-color:rgba(212,235,214,0.5);
+	border-radius:20px;
+	padding-left:40px;
+}
+
+#career-title3{
+	background-color:rgba(212,255,255,0.5);
+	border-radius:20px;
+	padding-left:40px;
+}
+
+.about-text{
+	text-align:justify;
+	font-size:20px;
+}
+
+.career-form{
+	background-color:rgba(255,255,255,0.5);
+	border-radius:20px;
+	padding-left:40px;
+}
+
+
+/*animation*/
+@keyframes point{
+	0%{
+		background-color:rgb(240,210,78);
+	}
+	50%{
+		background-color:rgb(240,190,78);
+	}
+	100%{
+		background-color:rgb(240,173,78);
+	}
+}
