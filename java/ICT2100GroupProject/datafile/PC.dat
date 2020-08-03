@@ -1,0 +1,71 @@
+10
+Laptop - Payhem,192.168.1.1,Laptop,2018,8.0,Lab B
+Windows 10,Proprietary
+Visual Studio,Freeware
+Microsoft Word,Proprietary
+Microsoft Excel,Proprietary
+Google Chrome,Freeware
+Netbeans,Freeware
+JDK 14.0.1,Shareware
+Blender,Freeware
+Discord,Freeware
+Visual Studio Code,Freeware
+ 
+PC1,0.0.0.0,Laptop,2020,13.0,Lab A
+Google Chrome,Freeware
+Windows 10,Proprietary
+Microsoft Excel,Proprietary
+ 
+PC2,192.168.1.2,Desktop,2019,2.0,Lab B
+Discord,Freeware
+Photoshop,Proprietary
+Pycharm,Shareware
+Microsoft Excel,Proprietary
+ 
+PC3,192.168.1.3,Desktop,2019,4.0,Lab C
+Kali Linux,Freeware
+JDK 14.0.1,Shareware
+Let's play Uno,Shareware
+Microsoft Word,Proprietary
+Microsoft Excel,Proprietary
+Visual Studio Code,Freeware
+ 
+PC4,192.168.1.4,Desktop,2019,4.0,Lab A
+Windows 10,Proprietary
+Photoshop,Proprietary
+Netbeans,Freeware
+Autocad 2020,Shareware
+Blender,Freeware
+ 
+Laptop1,193.0.0.1,Laptop,2020,4.0,Lab D
+Windows 10,Proprietary
+Itunes,Freeware
+League Of Legend,Freeware
+Discord,Freeware
+ 
+Laptop2,193.0.0.2,Laptop,2019,8.0,Lab D
+RedHat,Proprietary
+Visual Studio,Freeware
+Google Chrome,Freeware
+Telegram,Freeware
+ 
+Laptop3,193.0.0.3,Laptop,2019,8.0,Lab D
+Kali Linux,Freeware
+Let's play Uno,Shareware
+Microsoft Word,Proprietary
+ 
+Desktopa,192.168.0.10,Desktop,2020,32.0,Lab C
+Kali Linux,Freeware
+Ark: Survive Evolution,Freeware
+Xbox Screen Recorder,Shareware
+World Of Warship,Shareware
+Pycharm,Shareware
+JDK 14.0.1,Shareware
+ 
+Desktopb,192.168.3.2,Desktop,2019,10.0,--
+Windows 10,Proprietary
+Pycharm,Shareware
+Autocad 2020,Shareware
+Netbeans,Freeware
+Telegram,Freeware
+ 
