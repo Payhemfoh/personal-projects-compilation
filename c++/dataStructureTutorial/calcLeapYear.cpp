@@ -2,7 +2,17 @@
 #include <vector>
 
 bool isLeapYear(int year) {
-	return year % 4 == 0;
+	bool result = false;
+	
+	if(year%100==0){
+		if(year%400==0)
+			result = true;
+	}
+	else{
+		if(year%4==0 && year%100!=0)
+			result = true;
+	}
+	return result;
 }
 
 int main() {
