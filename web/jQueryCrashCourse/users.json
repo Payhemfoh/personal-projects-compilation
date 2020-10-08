@@ -1,0 +1,22 @@
+[
+    {
+        "firstName":"A",
+        "lastName":"A",
+        "email":"AA@gmail.com"
+    },
+    {
+        "firstName":"B",
+        "lastName":"B",
+        "email":"BB@gmail.com"
+    },
+    {
+        "firstName":"C",
+        "lastName":"C",
+        "email":"CC@gmail.com"
+    },
+    {
+        "firstName":"D",
+        "lastName":"D",
+        "email":"DD@gmail.com"
+    }
+]

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JQuery Crash Course</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        body{
+            font-size:17px;
+            font-family:arial;
+            background:#f4f4f4;
+            line-height:1.5em;
+        }
+        header{
+            background:#333;
+            color:#fff;
+            padding:20px;
+            text-align:center;
+            border-bottom:4px #000 solid;
+            margin-bottom:10px;
+        }
+        #container{
+            width:90%;
+            margin:auto;
+            padding:10px;
+        }
+        .myClass{
+            color:blue;
+            background:yellow;
+        }
+
+        #box{
+            background:grey;
+            color:white;
+            width:500px;
+            height:90px;
+            padding:40px;
+            text-align:center;
+        }
+
+        #box2{
+            background:red;
+            color:white;
+            width:100px;
+            height:100px;
+            position:relative;
+        }
+    </style>
+</head>
+
+<body>
+    <header><h1>JQuery Crash Course</h1></header>
+
+    <div id="container">
+        <h1 id="heading1">Heading One</h1>
+        <p id="para1">askjdlajdaoidhasndlkansiddhaiugfq</p>
+    
+        <h1 class="heading2">Heading One</h1>
+        <p class="para2">askjdlaj<span>daoidhas</span>ndlkansiddhaiugfq</p>
+
+        <span>daoidhas</span>
+
+        <ul id="list">
+        <li>List Item1</li>
+        <li>List Item2</li>
+        <li>List Item3</li>
+        <li>List Item4</li>
+        <li>List Item5</li>
+        <li>List Item6</li>
+        <li>List Item7</li>
+        <li>List Item8</li>
+        </ul>
+
+        <button >Button 1</button>
+        <input type="text">
+        <button>Submit</button>
+        <a href="https://www.google.com">Google</a>
+        <a href="https://www.facebook.com">Facebook</a>
+    
+        <!-- Event-->
+        <h3>Mouse Events</h3>
+        <button id="btn1" class="btnClass">Button 1</button>
+        <button id="btn2">Button 2</button>
+        <p id="para1_event">askjdlajdaoidhasndlkansiddhaiugfq</p>
+        <h1 id="coods"></h1>
+    
+        <form id="form">
+            <label>Name</label><br>
+            <input type="text" id="name" name="name"><br>
+
+            <label>Email</label><br>
+            <input type="text" id="email" name="email"><br>
+
+            <label>Gender</label><br>
+            <select id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <br>
+            <input type="submit" value="submit">
+        </form>
+        <br><br><br>
+        <!-- DOM Manipulation-->
+
+        <button id="btn1_dom">Button 1</button>
+        <p class="para1_dom">This is a paragraph</p>
+        <p class="para2_dom">This is another paragraph</p>
+        <div id="domDiv">
+        </div>
+        <input type="text" id="newItem" name="newItem">
+        <ul id="list_dom">
+            <li>List Item1</li>
+            <li>List Item2</li>
+            <li>List Item3</li>
+            <li>List Item4</li>
+        </ul>
+        <ul id="user">
+        </ul>
+    </div>
+
+    <!-- effect and animation-->
+    <div id="container_effect">
+        <h1>Effect</h1>
+        <button id="btnFadeOut">Fade Out</button>
+        <button id="btnFadeIn">Fade In</button>
+        <button id="btnFadeTog">Fade Toggle</button>
+        <button id="btnSlideUp">Slide Up</button>
+        <button id="btnSlideDown">Slide Down</button>
+        <button id="btnSlideTog">Slide Toggle</button>
+        <button id="btnStop">Stop</button>
+        <div id="box">
+            <h1>Hello</h1>
+        </div>
+
+        <h1>Animation</h1>
+        <button id="moveLeft">Move Left</button>
+        <button id="moveRight">Move Right</button>
+        <button id="moveAround">Move Around</button>
+        <div id="box2">
+        </div>
+    </div>
+
+    <div id="container_ajax">
+        <div id="result">
+            <!-- Javascript use link directly as the action-->
+            <form id="postForm" action="https://jsonplaceholder.typicode.com/posts">
+                <input type="text" id="title" placeholder="title">
+                <textarea placeholder="body" id="body"></textarea>
+                <br>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        //document is the webpage file(root node)
+        //ready function will be run after the file loaded
+        $(document).ready(function(){
+            //selector
+            //select all h1 and hide the tag
+            //$("h1").hide();
+            //select the h1 tag with id heading1 and show the content
+            $("h1#heading1").show();
+            //$("#heading1").show();
+            //select the h1 tag with class heading2 and show the content
+            $("h1.heading2").show();
+            //$(".heading2").show();
+            
+            //select all the span tag inside p tag and set the css property
+            $('p span').css('color','red');
+
+            //select the first li tag
+            $('ul#list li:first').css('color','red');
+            //$(#list li:first).css('color','red');
+            //$(li:first).css('color','red');
+            $('ul#list li:last').css('color','blue');
+            $('ul#list li:even').css('background-color','yellow');
+            $('ul#list li:odd').css('background-color','grey');
+            $('ul#list li:nth-child(3n)').css('color','green');
+
+            //all button is hided
+            //$(":button").hide();
+
+            //select links
+            $('[href]').css('color','black');
+            //select specific link
+            $('a[href="https://www.facebook.com"]').css('color','green');
+            //select everythings in document
+            //$('*').hide(1000);
+
+            //events
+            //mouse events
+            //function will run when button is clicked
+            //$("#btn1").click(()=>alert("BUtton Clicked!"))
+            //$("#btn1").on('click',()=>alert("Button Clicked!"));
+            //$("#btn1").click(()=>$("#para1_event").hide());
+            //$("#btn2").click(()=>$("#para1_event").show());
+            //$("#btn1").click(()=>$("#para1_event").toggle());     //replace toggle with fadeToggle
+
+            //double click
+            //$("#btn1").dblclick(()=>$("#para1_event").toggle());
+            
+            //hover cannot be used at on() method
+            //$("#btn1").hover(()=>$("#para1_event").toggle());
+            //hover = mouseenter + mouseleave
+            
+            //mouseenter,mouseleave,mousemove,
+            //mouseup,mousedown,mouseleft,mouseright 
+            //can be used at on() method
+            //$("#btn1").mouseenter(()=>$("#para1_event").toggle());
+            
+            //click events
+            //$("#btn1").click((e)=>console.log(e));
+            //e.currentTarget.id
+            //e.currentTarget.innerHTML
+            //e.currentTarget.outerHTML
+            //e.currentTarget.className
+
+            //display the position of mouse when the mouse if moved
+            $(document).mousemove((e)=>{$("#coods").html(`Coords: Y: ${e.clientY} X:${e.clientX}`);});
+            
+
+            //$('input').focus(()=>alert("Focus"));
+            //this function will run when we click inside the block
+            $('input:text').focus((e)=>$("#"+e.currentTarget.id).css("background","pink"));
+            //this function will run when we click outside the block
+            $("input:text").blur((e)=>$("#"+e.currentTarget.id).css("background","white"));
+
+            //$("input").keyup((e)=>console.log(e.target.value));
+
+            //$("select#gender").change((e)=>alert(e.target.value));
+
+            $("#form").submit((e)=>{
+                e.preventDefault();
+                //grab the values
+                let name=$("input#name").val();
+                console.log(name);
+                });
+
+
+
+
+
+
+            //DOM Manipulation
+            //set multiple css properties    
+            $('p.para1_dom').css({"color":"red","background":"grey"});
+            //add remote classes
+            $('.para2_dom').addClass("myClass");
+            $('.para2_dom').removeClass("myClass");
+            //toggle classes
+            $("#btn1_dom").click(()=>$(".para2_dom").toggleClass("myClass"));
+
+            //$("#domDiv").text("Hello World");
+            $("#domDiv").html("<h3>Hello World</h3>");
+            //alert($("#domDiv").text());
+            
+            /*
+                //add the content into the element
+                $("ul").append("<li>Appended List Item</li>");
+                $("ul").prepend("<li>Prepended List Item</li>");
+                $(".para1_dom").appendTo(".para2_dom");
+                $(".para1_dom").prependTo(".para2_dom");
+                //add the content before the element
+                $('ul').before("<h4>Hello</h4>");
+                $('ul').after("<h4>Hi</h4>");
+                //clear all the content of ul
+                $('ul').empty();
+                //remove ul from webpage
+                //$('ul').detach();
+                //add attribute name and set value
+                $('a').attr("target","_blank");
+                //alert($('a').attr('href'));
+                //remove the attribute
+                $('a').removeAttr('target');
+            */
+            //at tag at outside of the target
+            //$('p').wrap("<h1>");
+            //$('p').wrapAll("<h1>");
+
+            //function to add item after user enter value
+            $("#newItem").keyup((e)=>{
+                var code = e.which;
+                if(code == 13){
+                    e.preventDefault();
+                    $('ul').append('<li>'+e.target.value+'</li>');
+                }
+            })
+
+            /*
+            var myArr = ['Brad','Kelly',"Joe","Ros"];
+
+            //loop through each value in array
+            $.each(myArr,(i,val)=>$('#user').append(`<li>${val}</li>`));
+            */
+
+            let newArr = $('ul#list_dom li').toArray();
+            $.each(newArr,(i,val)=>console.log(val.innerHTML));
+
+
+            //effects
+            //parameter can be slow fast (string) and milisecond(int)
+            //callback function will run when action done
+            $('#btnFadeOut').click(()=>$('#box').fadeOut('slow',()=>$("#btnFadeOut").text("Its Gone")));
+            $('#btnFadeIn').click(()=>$('#box').fadeIn(3000,()=>$("#btnFadeIn").text("Its Come Back")));
+            $('#btnFadeTog').click(()=>$('#box').toggle(1000));
+
+            $('#btnSlideUp').click(()=>$('#box').slideUp(2000));
+            $('#btnSlideDown').click(()=>$('#box').slideDown(3000));
+            $('#btnSlideTog').click(()=>$('#box').slideToggle(2000));
+            
+            $('#btnStop').click(()=>$('#box').stop());
+            
+
+            //animation
+            //can animate with anythings with numeric values
+            //work with css property
+            $("#moveRight").click(()=>$("#box2").animate({left:500,height:"300px",width:"300px"}));
+            $("#moveLeft").click(()=>$("#box2").animate({left:0,height:"100px",width:"100px"}));
+
+            //queue // multiple animation at one
+            $('#moveAround').click(()=>{
+                let box = $("#box2");
+                box.animate({left:300});
+                box.animate({top:300,});
+                box.animate({top:300,left:0});
+                box.animate({left:0,top:0});
+            })
+
+
+            //Ajax in jQuery
+            /*
+            //import content from other file
+            //callback function will run after the action
+            $("#result").load("test.html",(response,status,xhr)=>{
+                if(status == "success"){
+                    alert("Success load content");
+                }else if(status =="error"){
+                    alert("Error "+xhr.statusText);
+                }
+            });
+            
+
+            //get data from file
+            $.get("test.html",(data)=>$('#result').html(data));
+            
+            //get data from json file
+            $.getJSON("users.json",(data)=>{
+                let result = $("#result");
+                result.append("<ul id=\"users_ajax\"></ul>");
+                $.each(data,(i,user)=>{
+                    $("ul#users_ajax").append("<li>"+user.firstName+"</li>")
+                })
+            })
+            
+            //get json content from third-party api
+            $.ajax({
+                method:"GET",
+                url:"https://jsonplaceholder.typicode.com/posts",
+                dataType:"json"
+            }).done((data)=>{
+                $.map(data,(post,i)=>{
+                    $("#result").append(`<h3>${post.title}</h3><p>${post.body}</p>`);
+                })
+            });
+            */
+
+            //get content from form
+            $("#postForm").submit((e)=>{
+                e.preventDefault();
+                let title = $("#title").val();
+                let body = $("#body").val();
+                let url = $("#postForm").attr("action");
+            
+                $.post(url,{title:title,body:body}).done((data)=>{console.log("Post Saved");
+                        console.log(data);})
+            });
+
+        });
+    </script>
+</body>
+</html>
