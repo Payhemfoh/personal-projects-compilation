@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ajax 2 - Local JSON</title>
+    </head>
+
+    <body>
+        <button id="btn1">Get User</button>
+        <button id="btn2">Get Users</button>
+        <br><br>
+        <h1>User</h1>
+        <div id="user"></div>
+        <h1>Users</h1>
+        <div id="users"></div>
+
+        <script>
+            document.getElementById("btn1").addEventListener('click',loadUser);
+            document.getElementById("btn2").addEventListener('click',loadUsers);
+
+            function loadUser(){
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET",'user.json',true);
+
+                xhr.onload = function(){
+                    if(xhr.status == 200){
+                        //need to parse in order to read the content
+                        let user = JSON.parse(this.responseText);
+
+                        let output = "";
+                        output += "<ul>"+
+                        "<li>ID: "+user.id+"</li>"+
+                        "<li>Name: "+user.name+"</li>"+
+                        "<li>Email: "+user.email+"</li>"+"</ul>";
+
+                        let tag = document.getElementById("user");
+                        tag.innerHTML = output;
+                    }
+                }
+
+                xhr.send();
+            }
+
+            function loadUsers(){
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET",'users.json',true);
+
+                xhr.onload = function(){
+                    if(xhr.status == 200){
+                        //need to parse in order to read the content
+                        let users = JSON.parse(this.responseText);
+
+                        let output = "";
+                        output += "<ul>";
+
+                        for(let i in users){
+                            output+="<li>ID: "+users[i].id+"</li>"+
+                            "<li>Name: "+users[i].name+"</li>"+
+                            "<li>Email: "+users[i].email+"</li>"+"<br>";
+                        }
+                        output+="</ul>";
+
+                        let tag = document.getElementById("users");
+                        tag.innerHTML = output;
+                    }
+                }
+
+                xhr.send();
+            }
+        </script>
+    </body>
+</html>
