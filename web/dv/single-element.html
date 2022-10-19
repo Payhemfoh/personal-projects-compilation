@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+    <title>Selection Function Chain</title>
+     <link rel="stylesheet" type="text/css" href="styles.css"/>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+	<p id ="target"> </p> <!---a-->
+
+	<script type ="text/javascript">
+		d3.select("p#target") //<----b
+		  .text("Hello World!"); //<---c
+	</script>
+</body>
+</html>
