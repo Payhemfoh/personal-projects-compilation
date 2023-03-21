@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <script src='d3.js'></script>
+    <link rel='stylesheet' href='styles.css' />
+</head>
+
+<body>
+    <script>
+        var data = [];
+        for(let i = 0; i< 20;++i){
+            data.push(i+1)
+        }
+
+        function render(data){
+            console.log(data)
+            d3.select("body").selectAll("div.h-bar")
+            .data(data)
+            .enter()
+            .append("div")
+            .attr("class","h-bar")
+            .append("span")
+            .text((d,i)=>d)
+
+            // Update the data to the visual object
+            d3.select("body").selectAll("div.h-bar")
+            .style("width",function(d){
+            return d==0? "1px" : (d*8)+"px";
+            })
+            .text((d)=>d)
+
+            d3.select("body").selectAll("div.h-bar")
+            .data(data)
+            .exit()
+            .remove(); 
+        }
+
+        setInterval(function(){
+            data.shift();
+            data.push(Math.round(Math.random()*100));
+            render(data);
+        },10);
+        render(data);
+    </script>
+</body>
+</html>

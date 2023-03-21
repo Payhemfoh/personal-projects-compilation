@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <link rel='stylesheet' type='text/css' href='style.css' />
+</head>
+
+<body>
+    <div class='content-block'>
+    <form method="post" action="register_process.php">
+        <h1>Login</h1>
+        <label for="username">Username</label><br>
+        <input type="text" name="username" id="username" placeholder="username">
+        <br><br>
+
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password" placeholder="password"><br>
+        <input type="checkbox" name="showpassword" id="showpassword">Show password
+        <br><br>
+
+        <label for="repeat_password">Repeat Password</label><br>
+        <input type="password" name="repeat_password" id="repeat_password" placeholder="repeat password"><br>
+        <input type="checkbox" name="showrepeatpassword" id="showrepeatpassword">Show password
+        <br><br>
+
+        <label for="email">Email</label><br>
+        <input type="email" name="email" id="email" placeholder="email">
+        <br><br>
+        
+        <input type="submit" value="register" class='btn'>
+        <p>Already have an account? <a href="login.html">Click here to login</a></p>
+        <br>
+    </form>
+    </div>
+    <script>
+        let showPassword = document.getElementById("showpassword")
+                                    .addEventListener("click",()=>{
+                                        let password = document.getElementById("password");
+                                        let showPassword = document.getElementById("showpassword");
+                                        if(showPassword.checked){
+                                            password.setAttribute("type","text");
+                                        }else{
+                                            password.setAttribute("type","password");
+                                        }
+                                    });
+        
+        let showRepeatPassword = document.getElementById("showrepeatpassword")
+                                    .addEventListener("click",()=>{
+                                        let password = document.getElementById("repeat_password");
+                                        let showPassword = document.getElementById("showrepeatpassword");
+                                        if(showPassword.checked){
+                                            password.setAttribute("type","text");
+                                        }else{
+                                            password.setAttribute("type","password");
+                                        }
+                                    });
+    </script>
+</body>

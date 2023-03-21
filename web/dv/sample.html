@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<head>
+    <title>Sample</title>
+    <meta charset='utf-8'>
+    <script src='d3.js'></script>
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Hi I m first line</p>
+    <p>Hello This is second line</p>
+    <div>
+    </div>
+    <script>
+        d3.selectAll('p').style('color','green');
+        /*
+            select("css selector")
+            selectAll("css selector")
+            text("content")
+            append("element")
+            insert("element")
+            remove()
+            attr("name","value")
+            property("name","value")
+            style("name","value")
+            class("class",bool)
+        */
+        d3.select("div").insert('p').text("second para");
+        d3.select("div,p").attr('class','error');
+        //d3.select("p").remove();
+    </script>
+</body>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Week 1 Exercise (1)</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="d3.js"></script>
+</head>
+<body>
+    <p id="p1">First Paragraph</p>
+    <p id="p2">Second Paragraph</p>
+    <div style="border:1px solid">
+        <p id="p3" style="text-align: center;">Third Paragraph</p>
+    </div>
+    <div class='ibox'></div>
+    <div class='ibox'></div>
+    <div class='ibox'></div>
+
+    <div class='h-bar'></div>
+
+    <script>
+        const data = [100,200,300,400,500]
+        d3.selectAll("p").style("text-align", "center");
+        d3.select("p").style("color", "green");
+        d3.select("#p2").style("color", "brown");
+        d3.select("body").append("p").text("Merry");
+        d3.select("div").insert("p").text("Christmas");
+        d3.selectAll("p")
+            .data(data)
+            .text((d,i)=>{
+                console.log(d);
+                console.log(i)
+                console.log(this)
+                return d;
+            })
+        
+        
+        d3.selectAll("p")
+            .style("color",function (d,i){
+                var text = this.innerText;
+                console.log(text)
+                if(text.indexOf("00")>=0)
+                    return "black"
+                else
+                    return "yellow"
+            })
+         
+        d3.select("p").remove();
+
+        d3.selectAll(".ibox")
+            .attr("class","ibox box red")
+            .html((d,i)=>i)
+        
+        /*
+        d3.selectAll(".ibox")
+            .attr("class","ibox box red")
+            .each(function(d,i){
+                d3.select(this).append("h2").text(i)
+            });
+        */
+        
+        d3.selectAll(".ibox")
+            .text((d,i)=>{
+                return i+1;
+            });
+        
+        d3.select("div")
+            .data(data)
+            .enter()
+            .append("h3")
+            .text((d,i)=>(d+""));
+        
+        const data2 = [10,40,20,30,10,20]
+        d3.select("body")
+            .data(data2)
+            .enter()
+            .append("div")
+                .style("class","h-bar")
+                .style("width",(d,i)=>(d*20))
+                .append("span")
+                .text((d,i)=>d)
+        
+        
+
+    </script>
+</body>
+</html>

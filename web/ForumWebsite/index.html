@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Homepage</title>
+    <link rel='stylesheet' type='text/css' href='style.css' />
+</head>
+
+<body>
+    <div class='content-block'>
+    <h1>Welcome to Forum</h1>
+    <button id="login-btn" class='btn'>Login</button><br><br>
+    <button id="register-btn" class='btn'>Register</button>
+    </div>
+    <script>
+        let loginBtn = document.getElementById("login-btn");
+        let registerBtn = document.getElementById("register-btn");
+
+        loginBtn.addEventListener("click",()=>location.href="login.html");
+        registerBtn.addEventListener("click",()=>location.href="register.html");
+    </script>
+</body>

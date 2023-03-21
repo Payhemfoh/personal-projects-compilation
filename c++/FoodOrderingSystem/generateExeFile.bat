@@ -1,0 +1,1 @@
+g++ -o StartProgram Customer.cpp CustomerManagementModule.cpp Food.cpp foodOrderingSystem.cpp InputModule.cpp MainModule.cpp MenuManagementModule.cpp Module.cpp Order.cpp OrderingModule.cpp Printable.cpp

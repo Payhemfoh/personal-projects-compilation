@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>AJAX 1 - Text File</title>
+    </head>
+
+    <body>
+        <button id="btn">Get Text</button>
+        <br><br>
+        <p id="text"></p>
+
+        <script>
+            //create event listener
+            let btn = document.getElementById("btn");
+            btn.addEventListener('click',loadText);
+
+            function loadText(){
+                //create XHR object
+                let xhr = new XMLHttpRequest();
+
+                //decide the file/url required
+                // OPEN - type, url/filename, async (true/false)
+                xhr.open("GET","sample.txt",true);
+
+                //readyState 1
+                //console.log(`ReadyState: ${xhr.readyState}`);
+
+                /*
+                //optional - used for loaders
+                xhr.onprogress = function(){
+                    //readyState 3
+                    console.log(`ReadyState: ${xhr.readyState}`);
+                }
+                */
+                
+                //action after loading
+                //onload will be run after ready
+                xhr.onload = function(){
+                    //check the http status of request
+                    //200 means success
+                    //403 means forbidden
+                    //404 means not found
+                    //readyState 4
+                    //console.log(`ReadyState: ${xhr.readyState}`);
+                    if(xhr.status == 200){
+                        let element = document.getElementById("text");
+                        element.innerHTML = this.responseText;
+                    }else if(this.status == 404){
+                        document.getElementById("text").innerHTML = "Text not found!";
+                    }
+                }
+
+                //need to used after onload to handle error
+                xhr.onerror = function(){
+                    console.log("Request Error");
+                }
+                
+
+                /*
+                xhr.onreadystatechange = function(){
+                    /*
+                        readyState value
+                        0 request not initialized
+                        1 server connection established
+                        2 request received
+                        3 processing request
+                        4 request finished and response is ready
+                    
+                    //readyState 2 -> 3 -> 4
+                    console.log(`ReadyState: ${xhr.readyState}`);
+
+                    if(this.readyState == 4 && this.status == 200){
+                        //console.log(this.responseText);
+                    }
+                }
+                */
+
+                //send the request to server
+                xhr.send();
+            }
+        </script>
+    </body>
+</html>

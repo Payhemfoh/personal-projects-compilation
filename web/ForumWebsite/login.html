@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel='stylesheet' type='text/css' href='style.css' />
+</head>
+
+<body>
+    <div class='content-block'>
+    <form method="post" action="login_process.php">
+        <h1>Login</h1>
+        <label for="username">Username</label><br>
+        <input type="text" name="username" id="username" placeholder="username">
+        <br><br>
+
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password" placeholder="password"><br>
+        <input type="checkbox" name="showpassword" id="showpassword">Show password
+        <br><br>
+        
+        <input type="submit" value="login">
+        <p>Haven't got account? <a href="register.html">Click here to register</a></p>
+        <br>
+    </form>
+    </div>
+    <script>
+        let showPassword = document.getElementById("showpassword");
+
+        showPassword.addEventListener("click",modifyPasswordVisibility);
+
+        function modifyPasswordVisibility(){
+            let passwordBox = document.getElementById("password");
+            let showPassword = document.getElementById("showpassword");
+            let visibility = showPassword.checked;
+            if(visibility){
+                passwordBox.setAttribute("type","text");
+            }else{
+                passwordBox.setAttribute("type","password");
+            }
+        }
+    </script>
+</body>

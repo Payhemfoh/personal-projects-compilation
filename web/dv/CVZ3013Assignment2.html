@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <title>Twitter Dataset</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        .btn {
+            border: none;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 2px solid #ddd;
+        }
+
+        .btn:hover {background-color: #ddd;}
+        
+        .btn-selected {
+            background-color: #ddd;
+        }
+
+        .bubbles {
+            stroke-width: 2px;
+            stroke: white;
+        }
+
+        .bubbles:hover{
+            stroke: black;
+        }
+    </style>
+</head>
+<body>
+    <div id='btn_set' style="margin-left: 20px;">
+        <h1>Bubble Color</h1>
+        <button class='btnLanguage btn btn-selected'>Language</button>
+        <button class='btnPartnered btn'>Partnered</button>
+        <button class='btnMature btn'>Mature</button>
+        <button class='btnReset btn'>Reset</button>
+    </div>
+
+    <div id='y_axis_btn_set' style="margin-top: 20px;margin-left: 20px;">
+        <h1>Y Axis</h1>
+        <button class='btnWatchTime btn btn-selected'>watch time</button>
+        <button class='btnPeakViewer btn'>peak viewer</button>
+        <button class='btnFollower btn'>Follower gained</button>
+        <button class='btnView btn'>view gained</button>
+    </div>
+
+    <div style="display:flex">
+    <div>
+        <div id='chart'></div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+        <div id='legend' style='display:block'>
+
+        </div>
+        <div id='info-box' style="width:300px;height:400px;display:block;line-height:1.5"></div>
+    </div>
+    </div>
+    <script type='module'>
+        let margin = {top: 200, right: 50, bottom: 100, left:100}
+        let size = {
+            width:1550,
+            height:900,
+            margined_width:1550-margin.left-margin.right,
+            margined_height:900-margin.top-margin.bottom
+        }
+
+        //chart
+        let svg = d3.select("#chart")
+                    .append("svg")
+                        .attr("width",size.width)
+                        .attr("height",size.height)
+                    .append("g")
+                    .style("transform",`translate(${margin.left}px,${margin.top}px)`);
+
+
+        //legend
+        let legendRegion = d3.select("#legend")
+                            .append("svg")
+                                .attr("width", 300)
+                                .attr("height", 500)
+
+        let resetLegend = () => {
+            legendRegion.html("");
+            legendRegion = d3.select("#legend svg")
+                                .attr("width", 300)
+                                .attr("height", 500)
+        
+            legendRegion.append('text')
+                        .attr("id","title")
+                        .attr('x', 50)
+                        .attr('y', 50)
+                        .attr('stroke', 'black')
+                        .style('font-size', 18)
+                        .text("Language") 
+        }
+
+        let updateColorButton = (buttonId) =>{
+            const color_btn_list = [".btnLanguage",".btnPartnered",".btnMature"];
+            color_btn_list.forEach((value)=>{
+                if(value == buttonId){
+                    d3.select(value).classed("btn-selected",true);
+                }
+                else{
+                    if(d3.select(value).classed("btn-selected"))
+                        d3.select(value).classed("btn-selected",false);
+                }
+            })
+        }
+
+        let updateYButton = (buttonId) =>{
+            const y_btn_list = [".btnWatchTime",".btnPeakViewer",".btnFollower",".btnView"];
+
+            y_btn_list.forEach((value)=>{
+                if(value == buttonId){
+                    d3.select(value).classed("btn-selected",true);
+                }
+                else{
+                    if(d3.select(value).classed("btn-selected"))
+                        d3.select(value).classed("btn-selected",false);
+                }
+            })
+        }
+
+        //legend
+        d3.select("#info-box").html('<h1 style="font-size:20px;stroke:black;text-align:center">Info</h1>')
+
+        let showInfo = (d) => {
+                            d3.select("#info-box")
+                                .html(`<h1 style="font-size:20px;stroke:black;text-align:center">Info</h1><br>
+                                        Channel:<b>${d['Channel']}</b><br>
+                                        Watch Time(Minutes):<b>${d['Watch time(Minutes)']}</b><br>
+                                        Stream time(Minutes):<b>${d['Stream time(minutes)']}</b><br>
+                                        Peak Viewers:<b>${d['Peak viewers']}</b><br>
+                                        Average Viewers:<b>${d['Average viewers']}</b><br>
+                                        Followers:<b>${d['Followers']}</b><br>
+                                        Followers gained:<b>${d['Followers gained']}</b><br>
+                                        Views gained:<b>${d['Views gained']}</b><br>
+                                        Partnered:<b>${d['Partnered']}</b><br>
+                                        Mature:<b>${d['Mature']}</b><br>
+                                        Language:<b>${d['Language']}</b><br>`)
+                        }
+
+        let tags = {x:'Stream time(minutes)',y:'Watch time(Minutes)',color:'Language',size:'Followers'}
+        const data = await d3.csv("./twitchdata.csv");
+        console.log(data)
+
+        let updateGraph = ()=>{
+            svg.html("");
+
+            let x = d3.scaleSqrt()
+                .domain(d3.extent(data,d=>parseFloat(d[tags.x])))
+                .range([0,size.margined_width])
+                .nice();
+    
+            svg.append("g")
+                .attr("transform",`translate(0,${size.margined_height})`)
+                .call(d3.axisBottom(x).tickFormat(d3.format("d")))
+            
+            svg.append("text")
+				.attr("transform",`translate(${size.margined_width/2},${size.margined_height+margin.bottom/2})`)
+				.style("text-anchor","middle")
+				.text(tags.x)
+            
+            let y = d3.scaleSqrt()
+                    .domain(d3.extent(data,d=>parseFloat(d[tags.y])))
+                    .range([size.margined_height,0])
+                    .nice();
+
+            svg.append("g")
+                .call(d3.axisLeft(y));
+            
+            svg.append("text")
+				.attr("transform","rotate(-90)")
+				.attr("y",0-margin.left)
+				.attr("x",0-(size.margined_height/2))
+				.attr("dy","1em")
+				.style("text-anchor","middle")
+				.text(tags.y)
+            
+            let bubbleSize = d3.scaleLinear()
+                            .domain([0,d3.max(data,d=>d[tags.size])])
+                            .range([1,20]);
+        
+            //language
+            let uniqueList = [...new Set(data.map(d=>d[tags.color]))]
+            
+            let bubbleColor = d3.scalePoint()
+                                .domain(uniqueList)
+                                .range([0,uniqueList.length])
+
+            let assignColor = d3.scaleLinear()
+                                .domain([0,uniqueList.length])
+                                .interpolate(d3.interpolateHcl)
+                                .range([d3.rgb('red'),d3.rgb('blue')])
+            
+            let addLabel = (uniqueList)=>{
+                uniqueList.forEach((value,index)=>{
+                legendRegion
+                    .append('circle')
+                        .attr('cx', 50)
+                        .attr('cy', 80+index * 20)
+                        .attr('r', 5)
+                        .attr('fill', assignColor(bubbleColor(value)));
+
+                legendRegion
+                    .append('text')
+                        .attr('x', 60)
+                        .attr('y', 85+index * 20)
+                        .style('font-size', 18)
+                        .text(value)
+                })
+                
+            }
+            resetLegend();
+            addLabel(uniqueList);
+
+            svg.append("g")
+            .selectAll("dot")
+            .data(data)
+            .enter()
+            .append("circle")
+                .attr("cx",(d)=> x(d[tags.x]))
+                .attr("cy",(d)=> y(d[tags.y]))
+                .attr("r",(d)=> bubbleSize(d[tags.size]))
+                .attr("class","bubbles")
+                .style("fill",(d)=>assignColor(bubbleColor(d[tags.color])))
+                .style("opacity","0.6")
+                .attr("stroke","white")
+                .style("stroke-width","1px")
+                .on("click", showInfo )
+        }
+
+        updateGraph();
+
+        d3.select('.btnWatchTime')
+        .on("click", ()=>{
+            tags.y = 'Watch time(Minutes)';
+            updateGraph();
+            updateYButton(".btnWatchTime");
+        });
+
+        d3.select('.btnPeakViewer')
+        .on("click", function(){
+            tags.y = 'Peak viewers';
+            updateGraph();
+            updateYButton(".btnPeakViewer");
+        });
+
+        d3.select('.btnFollower')
+        .on("click", function(){
+            tags.y='Followers gained';
+            updateGraph();
+
+            updateYButton(".btnFollower");
+        });       
+
+        d3.select('.btnView')
+        .on("click", function(){
+            tags.y = 'Views gained';
+            updateGraph();
+
+            updateYButton(".btnView");
+        }); 
+
+        d3.select('.btnPartnered')
+        .on("click", function(){
+            tags.color = 'Partnered';
+            updateGraph();
+            d3.select("#legend #title")
+                .text("Partnered")
+            
+            updateColorButton(".btnPartnered");
+        });
+
+        d3.select('.btnMature')
+        .on("click", function(){
+            tags.color = 'Mature';
+            updateGraph();
+            d3.select("#legend #title")
+                .text("Mature")
+            
+            updateColorButton(".btnMature");
+        });  
+
+        d3.select('.btnLanguage')
+        .on("click", function(){
+            tags.color='Language';
+            updateGraph();
+            d3.select("#legend #title")
+                .text("Language")
+            
+            updateColorButton(".btnLanguage");
+        });  
+        
+        d3.select('.btnReset')
+        .on("click", function(){
+            tags = {x:'Stream time(minutes)',y:'Watch time(Minutes)',color:'Language',size:'Followers'};
+            updateGraph();
+            updateYButton(".btnWatchTime");
+            updateColorButton(".btnLanguage");
+        });  
+
+    </script>
+</body>
+</html>

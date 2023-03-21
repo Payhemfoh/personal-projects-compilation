@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='utf-8'>
+	<title>Antibiotic Analysis</title>
+	<link rel="stylesheet" type="text/css" href="styles.css"/>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<div id='bar_chart'></div>
+<div id='legend' style='float:right;'></div>
+<script type='text/javascript'>
+	const svg_block = {width:1200,height:900}
+	//set the width and height of graph
+	let margin={top:100,right:30,bottom:150,left:90};
+	let width = svg_block.width - margin.left - margin.right;
+	let height = svg_block.height - margin.top - margin.bottom;
+	let gramStaining = {positive:'#d775',negative:'#1795'}
+
+	let bar_svg = d3.select("#bar_chart")
+					.append("svg")
+						.attr("width",svg_block.width)
+						.attr("height",svg_block.height)
+						.style("float","left")
+						.append("g")
+							.attr("transform",`translate(${margin.left},${margin.top})`);
+	
+	d3.csv("./data.csv",function(error,data){
+		if(error) throw error;
+
+		//data sorting
+		data.sort(function(x,y){
+			return d3.descending(x['Gram Staining'],y['Gram Staining']) || d3.ascending(x.Penicilin, y.Penicilin) || d3.ascending(x.Neomycin,y.Neomycin) || d3.ascending(x.Streptomycin,y.Streptomycin);
+		});
+
+		data.sort(function(x,y){
+			return d3.ascending(x.Penicilin, y.Penicilin);
+		});
+
+		console.log(data);
+
+		//divide antibiotic and bacterias for x axis
+		let subgroups = data.columns.slice(1,4);
+		let columns = d3.map(data,function(d){return d.Bacteria}).keys();
+		
+		//create x axis
+		let xAxis = d3.scaleBand()
+						.domain(columns)
+						.range([0,width])
+						.padding([0.2]);
+		
+		bar_svg.append("g")
+				.attr("transform",`translate(0,${height})`)
+				.call(d3.axisBottom(xAxis).tickSize(0))
+				.selectAll("text")	
+					.style("text-anchor", "end")
+					.attr("dx", "-.8em")
+					.attr("dy", ".15em")
+					.attr("transform", "rotate(-25)");
+
+		bar_svg.append("text")
+				.attr("transform",`translate(${width/2},${height+margin.top})`)
+				.style("text-anchor","middle")
+				.text("Bacteria")
+		
+		//create y axis
+		let yAxis = d3.scaleLog()
+						.domain([0.0001,1000])
+						.range([0,height])
+		
+		//.tickValues([0.001,0.01, 0.1,1,10,100,1000])
+		bar_svg.append("g")
+				.call(d3.axisLeft(yAxis).tickFormat(d3.format(".4f")).tickValues([0.0001,0.001,0.01, 0.1,1,10,100,1000]).tickSize(3));
+		
+		bar_svg.append("text")
+				.attr("transform","rotate(-90)")
+				.attr("y",0-margin.left)
+				.attr("x",0-(height/2))
+				.attr("dy","1em")
+				.style("text-anchor","middle")
+				.text("Minimum Inhibitory Concentration (MIC) (mg/L)")
+		
+		//create axis for antibiotic group
+		let subGroupAxis = d3.scaleBand()
+								.domain(subgroups)
+								.range([0,xAxis.bandwidth()])
+								.padding([0.05]);
+		
+		let colors = d3.scaleOrdinal()
+						.domain(subgroups)
+						.range(['#f00','#0f0','#00f'])
+
+		bar_svg.append("g")
+				.selectAll("rect")
+				.data(data)
+				.enter()
+				.append("rect")
+					.attr("x",function(d){
+						console.log(d)
+						return xAxis(d.Bacteria);
+					})
+					.attr("y",function(d){
+						return 0;
+					})
+					.attr("width",function(d){
+						return (width / data.length) - 0.8;
+					})
+					.attr("height",function(d){
+						return height;
+					})
+					.attr("fill",function(d){
+						return gramStaining[d['Gram Staining']]
+					})
+
+		
+		//bind data and create bar in chart
+		bar_svg.append("g")
+				.selectAll("g")
+				.data(data)
+				.enter()
+				.append("g")
+					.attr("transform",function(d){
+						return `translate(${xAxis(d.Bacteria)},0)`;
+					})
+				.selectAll("rect")
+				.data(function(d){
+					return subgroups.map(function(key){
+						return {key:key,value:d[key]};
+					});
+				})
+				.enter()
+				.append("rect")
+					.attr("x",function(d){
+						return subGroupAxis(d.key);
+					})
+					.attr("y",function(d){
+						return yAxis(d.value);
+					})
+					.attr("width",subGroupAxis.bandwidth())
+					.attr("height",function(d){
+						return height - yAxis(d.value);
+					})
+					.attr("fill",function(d){
+						return colors(d.key);
+					})
+		
+		bar_svg.append("text")
+				.attr("transform",`translate(${width/2},${-margin.top/2})`)
+				.style("font-size",'1.5em')
+				.style("text-anchor","middle")
+				.text("Different Type Of Antibiotic And The MIC On The Specific Bacteria")
+		
+		let legend = d3.select("#legend")
+					.append("svg")
+						.attr("width",450)
+						.attr("height",300)
+
+		
+		subgroups.forEach(function(d,i){
+			legend.append("circle").attr("cx",200).attr("cy",130 + (30 * i)).attr("r", 6).style("fill", colors(d))
+			legend.append("text").attr("x", 220).attr("y", 130 + (30 * i)).text(d).style("font-size", "15px").attr("alignment-baseline","middle")
+		})
+
+		legend.append("circle").attr("cx",200).attr("cy",220).attr("r", 6).style("fill", gramStaining.positive)
+		legend.append("circle").attr("cx",200).attr("cy",250).attr("r", 6).style("fill", gramStaining.negative)
+		legend.append("text").attr("x", 220).attr("y", 220).text("Gram Staining Positive").style("font-size", "15px").attr("alignment-baseline","middle")
+		legend.append("text").attr("x", 220).attr("y", 250).text("Gram Staining Negative").style("font-size", "15px").attr("alignment-baseline","middle")
+
+	
+	});
+</script>
+</body>

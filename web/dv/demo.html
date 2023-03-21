@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Visualization</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" defer>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<style>
+body {
+  font: 11px sans-serif;
+}
+
+.axis text {
+  font: 11px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.background {
+  fill: #ddd;
+}
+
+.positive {
+  fill: #5821A1;
+}
+
+.negative {
+  fill: #D334A2;
+}
+
+.gram {
+  font: 12px sans-serif;
+}
+
+.gram-label {
+  font: 26px sans-serif;
+  font-weight: normal;
+  opacity: 0.6;
+}
+
+.tick line {
+    stroke: #bbb;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path, .x2.axis path, .y.axis path {
+  display: none;
+}
+
+.legend {
+  font: 18px sans-serif;
+}
+
+.xlabel {
+  font: 14px sans-serif;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Burtin’s Antibiotics</h1>
+  <div id="chart"></div>
+  <a href="https://github.com/domoritz/vis-a1"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+</div>
+
+<script src="d3.v3.js" charset="utf-8"></script>
+
+<script type="application/javascript">
+
+var margin = {top: 40, right: 35, bottom: 45, left: 190},
+    width = 1000 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x0 = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .125, .1);
+
+var x1 = d3.scale.log();
+
+var y = d3.scale.ordinal()
+    .rangeRoundBands([0, height], .3, .15);
+
+var gramColor = {
+  positive: "#531F96",
+  negative: "#9E2779"
+}
+
+var xAxis = d3.svg.axis()
+    .scale(x1)
+    .orient("bottom")
+    .tickValues([0.01, 0.1, 1, 10, 100])
+    .tickFormat("")
+    .tickSize(-height, 0);
+
+var xAxis2 = d3.svg.axis()
+    .scale(x1)
+    .orient("bottom")
+    .ticks(8, d3.format(",.1s"))
+    .tickSize(6, 0);
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("a1-burtin.csv", function(error, data) {
+  var antibiotics = ["Penicilin", "Streptomycin", "Neomycin"];
+
+  data.forEach(function(d) {
+    d.antibiotics = antibiotics.map(function(name) { return {name: name, value: +d[name], gs: d['Gram Staining']}; });
+  });
+
+  data.sort(function(a, b){ return d3.descending(a["Gram Staining"] + a.Bacteria, b["Gram Staining"] + b.Bacteria); }).reverse()
+
+  y.domain(data.map(function(d) { return d.Bacteria; }));
+  x0.domain(antibiotics);
+  x1.domain([0.001, 1000]).range([x0.rangeBand(), 0]);
+
+  svg.selectAll(".gram")
+      .data(data)
+    .enter()
+      .append("text")
+      .attr("class", "gram")
+      .attr("text-anchor", "end")
+      .attr("x", 0)
+      .attr("y", function(d) { return y(d.Bacteria) + y.rangeBand()/2 + 4})
+      .style("fill", function(d) { return d3.rgb(gramColor[d["Gram Staining"]]).darker(0.6)})
+      .text(function(d) { return d.Bacteria });
+
+  var gp = svg.append("text")
+      .attr("transform", "translate("+ width +", 250) rotate(90)")
+      .attr("class", "gram-label")
+      .style("fill", gramColor["positive"])
+      .text("gram positive");
+
+  var gn = svg.append("text")
+      .attr("transform", "translate("+ width +", 35) rotate(90)")
+      .attr("class", "gram-label")
+      .attr("class", "gram-label")
+      .style("fill", gramColor["negative"])
+      .text("gram negative");
+
+  //gray background
+  svg.selectAll(".background")
+      .data(antibiotics)
+    .enter().append("rect")
+      .attr("class", "background")
+      .attr("x", function(d) {return x0(d)})
+      .attr("width", x0.rangeBand())
+      .attr("height", height);
+
+  svg.selectAll(".x .axis")
+      .data(antibiotics)
+    .enter().append("g")
+      .attr("class", "x axis")
+      .attr("transform", function(d) { return "translate(" + x0(d) + "," + height + ")"; })
+      .call(xAxis)
+
+  svg.selectAll(".x2 .axis")
+      .data(antibiotics)
+    .enter().append("g")
+      .attr("class", "x2 axis")
+      .attr("transform", function(d) { return "translate(" + x0(d) + "," + height + ")"; })
+      .call(xAxis2)
+
+  // x label
+  svg.append("text")
+      .attr("y", height + margin.top + margin.bottom - 43)
+      .attr("x", (width)/2)
+      .style("text-anchor", "middle")
+      .attr("class", "xlabel")
+      .text("Effectiveness of the Antibiotic (Minimum Inhibitory Concentration (MIC) in µg/ml)");
+
+  var bacteria = svg.selectAll(".bacteria")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "g")
+      .attr("transform", function(d) { return "translate(0, " + y(d.Bacteria) + ")"; });
+
+  var bacEnter = bacteria.selectAll("rect")
+      .data(function(d) { return d.antibiotics; }).enter();
+
+  var threshold = 1000;
+
+  bacEnter.append("rect")
+      .attr("width", function(d) { return Math.abs(x1(d.value) - x1(threshold)); })
+      .attr("x", function(d) { return x0(d.name) + x1(Math.max(threshold, d.value)); })
+      .attr("y", 0)
+      .attr("height", y.rangeBand())
+      .style("fill", function(d) {
+        var color = d3.rgb(gramColor[d.gs]);
+        return d.value < threshold ? color : color.brighter(2)
+      });
+
+  var minWidth = 30;
+  bacEnter.append("text")
+      .attr("x", function(d) {
+        var diff = 5
+        if (x1(d.value) > minWidth) {
+          diff = -5;
+        }
+        return x0(d.name) + x1(d.value) + diff;
+      })
+      .attr("y", y.rangeBand() / 2)
+      .attr("dy", ".35em")
+      .attr("text-anchor", function(d) {
+        if (x1(d.value) < minWidth) {
+          return "begin";
+        }
+        return "end";
+      })
+      .style("fill", function(d) {
+        if (x1(d.value) < minWidth) {
+          return "black";
+        }
+        return "white";
+      })
+      .text(function(d) { return d.value; });
+
+  var legend = svg.selectAll(".legend")
+      .data(antibiotics.slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("width", x0.rangeBand())
+    .append("text")
+      .attr("x", function(d) { return x0(d) + x0.rangeBand()/2; })
+      .attr("y", "-16")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d; });
+});
+</script>
+</body>
+</html>
