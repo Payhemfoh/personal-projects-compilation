@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
-const char* ssid = "Foh_Family 2.4G@unifi"; //Hotspot name
-const char* password = "4709477a";
+const char* ssid = ""; //Hotspot name
+const char* password = "";
 const int LED = D8;
 
 WiFiServer server(80);
