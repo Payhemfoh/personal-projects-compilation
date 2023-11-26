@@ -14,8 +14,8 @@ Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT,&Wire,RESET);
 SerialMonitor sm;
 Led l(D8,&sm);
 Sensor sensor(D6);
-const char* ssid = "Foh_Family 2.4G@unifi";
-const char* password = "4709477a";
+const char* ssid = "";
+const char* password = "";
 WiFiServer server(80);
 
 int interval = 4000;
