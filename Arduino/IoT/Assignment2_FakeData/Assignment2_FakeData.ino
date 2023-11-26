@@ -2,12 +2,12 @@
 #include <Adafruit_MQTT.h>
 #include <Adafruit_MQTT_Client.h>
 
-const char* SSID = "Yafumin";
-const char* PASSWORD = "4387137a";
+const char* SSID = "";
+const char* PASSWORD = "";
 const char* AIO_SERVER = "io.adafruit.com";
 const int AIO_SERVER_PORT = 1883;
-#define AIO_USERNAME "Yafumin"
-const char* AIO_KEY = "aio_pOEY412pXt1CyBXeZoktVwPjrBF8";
+#define AIO_USERNAME ""
+const char* AIO_KEY = "";
 
 WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client,AIO_SERVER,AIO_SERVER_PORT,AIO_USERNAME,AIO_KEY);
