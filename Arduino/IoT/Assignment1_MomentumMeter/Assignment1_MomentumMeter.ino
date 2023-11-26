@@ -7,8 +7,8 @@ const long SERIAL_CHANNEL = 9600;
 const int SONIC_TRIG_PIN = D6;
 const int SONIC_ECHO_PIN = D5;
 
-const char* SSID = "UOW Malaysia KDU";
-const char* PASSWORD = "kdu@batu-kawan";
+const char* SSID = "";
+const char* PASSWORD = "";
 const int PORT = 80;
 const double MASS = 208;
 
