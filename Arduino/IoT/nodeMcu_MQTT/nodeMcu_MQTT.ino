@@ -2,14 +2,14 @@
 #include <Adafruit_MQTT.h>
 #include <Adafruit_MQTT_Client.h>
 
-const char* SSID = "Foh_Family 2.4G@unifi";
-const char* pword = "4709477a";
+const char* SSID = "";
+const char* pword = "";
 const int LED = D6;
 
 const char* AIO_SERVER = "io.adafruit.com";
 const int AIO_SERVERPORT = 1883;
-#define AIO_USERNAME "Yafumin"
-#define AIO_KEY "aio_pOEY412pXt1CyBXeZoktVwPjrBF8"
+#define AIO_USERNAME ""
+#define AIO_KEY ""
 
 WiFiClient client;
 
