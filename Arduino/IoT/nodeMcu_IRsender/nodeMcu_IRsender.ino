@@ -8,7 +8,7 @@
 
 const char* ssid = ""; //Hotspot name
 const char* password = "";
-String ip = "http://192.168.1.55";
+String ip = "";
 const int pin_send = D2;
 
 IPAddress local_IP(192,168,1,55);
